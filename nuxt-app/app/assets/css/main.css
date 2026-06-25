@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+
+@theme {
+--color-navbar : #010830
+--color-start-transition-hero: #010830
+--color-via-transition-hero: #4e2676
+--color-end-transition-hero: #ed7d3e
+--color-start-transition-bg: #010830
+--color-end-transition-bg: #4e2676
+--color-registrar-button: #9f6eff
+--color-background-card: #e9efff
+--color-background-footer: #201f25
+--color-light-text: #6c7382
+/* Faltas códigos de colores */
+}
+

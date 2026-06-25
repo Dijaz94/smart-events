@@ -11,3 +11,33 @@ generator client {
 datasource db {
   provider = "mysql"
 }
+
+
+
+model usuario{
+  email String @db.VarChar(30) @id
+  password String @db.VarChar(64) 
+  nombre String @db.VarChar(20)
+  apellido String @db.VarChar(30)
+  rol String @db.VarChar(20)
+}
+
+model evento{
+  id_evento Int @id @default(autoincrement())
+  titulo String @db.VarChar(30)
+  fecha DateTime @db.Date
+  lugar String @db.VarChar(40)
+  // imagen ??
+  //buscar opciones para almacenar la imagen. almacenamos la ubicacion encriptada en la base de datos? o vemos como guardar el binario?
+  valor Int 
+  inscrito inscrito []
+}
+
+model inscrito{
+  id_inscrito Int @id @default(autoincrement())
+  email String @db.VarChar(30)
+  nombre String @db.VarChar(20)
+  apellido String @db.VarChar(30)
+  id_evento Int
+  evento evento @relation(fields: [id_evento], references: [id_evento])
+}
