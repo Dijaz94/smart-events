@@ -27,8 +27,7 @@ model evento{
   titulo String @db.VarChar(30)
   fecha DateTime @db.Date
   lugar String @db.VarChar(40)
-  // imagen ??
-  //buscar opciones para almacenar la imagen. almacenamos la ubicacion encriptada en la base de datos? o vemos como guardar el binario?
+  imagen String @db.VarChar(255) //almacenaremos la direccion URL, la cual tiene la posibilidad de ser larguisima.
   valor Int 
   inscrito inscrito []
 }
