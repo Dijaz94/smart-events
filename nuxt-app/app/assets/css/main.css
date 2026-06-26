@@ -3,16 +3,36 @@
 
 
 @theme {
---color-navbar : #010830
---color-start-transition-hero: #010830
---color-via-transition-hero: #4e2676
---color-end-transition-hero: #ed7d3e
---color-start-transition-bg: #010830
---color-end-transition-bg: #4e2676
---color-registrar-button: #9f6eff
---color-background-card: #e9efff
---color-background-footer: #201f25
---color-light-text: #6c7382
-/* Faltas códigos de colores */
+/* Navbar */
+  --color-navbar: #010830;
+  --color-navbar-accent: #ed7d3e; /* "S" y "E" del navbar, indicador de página activa */
+
+  /* Transición del Hero */
+  --color-start-transition-hero: #010830;
+  --color-via-transition-hero: #4e2676;
+  --color-end-transition-hero: #ed7d3e;
+
+  /* Transición del fondo de la página */
+  --color-start-transition-bg: #010830;
+  --color-end-transition-bg: #4e2676;
+
+  /* Botones */
+  --color-action-button: #ed7d3e;      
+  --color-registrar-button: #9f6eff;   
+
+  /* Formularios */
+  --color-form-border: #4e2676;
+  --color-input-border: #9f6eff;
+
+  /* Textos */
+  --color-info-message: #9f6eff;       
+  --color-card-text: #3e3294;          
+  --color-light-text: #6c7382;
+  --color-footer-light-text: #82858b;
+
+  /* Backgrounds */
+  --color-background-card: #e9efff;
+  --color-background-footer: #201f25;
+
 }
 
