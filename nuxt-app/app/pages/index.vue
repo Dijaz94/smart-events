@@ -1,5 +1,6 @@
 <template>
-    <div class=" min-h-screen bg-linear-to-br from-color-start-transition-bg to-color-end-transition-bg">
+    <div class=" min-h-screen bg-linear-to-r from-start-transition-bg to-end-transition-bg">
+        <!--HERO-->
         <section
             class=" relative bg-linear-to-r from-start-transition-hero via-via-transition-hero to-end-transition-hero pt-24 pb-20">
             <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
@@ -15,6 +16,20 @@
                         un evento</UButton>
                 </div>
 
+            </div>
+        </section>
+
+        <!--PROXIMOS EVENTOS-->
+        <section class="py-16">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <h2 class="text-3xl font-bold mb-10 text-center md:text-left">Próximos Eventos</h2>
+
+                <!--Cards-->
+                <div class="grid md:grid-cols-3 gap-8">
+
+
+                </div>
             </div>
 
 
