@@ -1,3 +1,7 @@
+<script setup lang="ts">
+
+</script>
+
 <template>
     <div class="max-w-7xl mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
 

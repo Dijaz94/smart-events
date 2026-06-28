@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import type { Evento } from '~/types/eventos';
+
+const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/eventos/proximos')
+</script>
 <template>
     <div class=" min-h-screen bg-linear-to-r from-start-transition-bg to-end-transition-bg">
         <!--HERO-->
@@ -32,6 +37,7 @@
 
                 <!--Cards-->
                 <div class="grid md:grid-cols-3 gap-8 px-24">
+                    <CardEvento v-for="card in eventosProximos" :evento="card"/>
                     <!--Card Ballet-->
                     <div class="bg-background-card p-6 shadow-lg rounded-2xl">
                         <img src="" alt="Imagen de ballet" class="w-full h-56 object-cover mb-4 rounded-lg">
