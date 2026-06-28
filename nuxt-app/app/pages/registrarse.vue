@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import type { Evento } from '~/types/eventos';
+
+    const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/eventos/proximos')
+console.log(eventosProximos.value)
+</script>
 <template>
-    <div class="max-w-7xl mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
+    <div class="w-full mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
         <div class="flex flex-col md:flex-row gap-10 items-start">
 
             <!-- Formulario lado izquierdo -->
@@ -57,43 +63,11 @@
 
                 <!-- Cards -->
                 <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center md:place-items-start">
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center md:place-items-start items-stretch">
 
-                    <!-- Card Ballet -->
-                    <div class="bg-background-card p-6 shadow-lg rounded-2xl w-full max-w-sm md:max-w-none">
-                        <img src="" alt="Imagen de ballet" class="w-full h-56 object-cover mb-4 rounded-lg">
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-900 mb-3">Ballet</h4>
-                            <p class="text-card-text font-semibold mb-1">Fecha: 12 Dic 2026</p>
-                            <p class="text-card-text font-semibold mb-1">Viña del Mar</p>
-                            <p class="text-action-button font-bold mb-1">49.990 CLP</p>
-                            <p class="text-registrar-button font-semibold">Cupos: 23 Disponibles</p>
-                        </div>
-                    </div>
+                    <!-- Cards -->
+                    <CardEvento v-for="card in eventosProximos" :evento="card"/>
 
-                    <!-- Card Charla -->
-                    <div class="bg-background-card p-6 shadow-lg rounded-2xl w-full max-w-sm md:max-w-none">
-                        <img src="" alt="Imagen de charla" class="w-full h-56 object-cover mb-4 rounded-lg">
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-900 mb-3">Charla</h4>
-                            <p class="text-card-text font-semibold mb-1">Fecha: 12 Oct 2026</p>
-                            <p class="text-card-text font-semibold mb-1">Villa Alemana</p>
-                            <p class="text-action-button font-bold mb-1">12.500 CLP</p>
-                            <p class="text-registrar-button font-semibold">Cupos: 54 Disponibles</p>
-                        </div>
-                    </div>
-
-                    <!-- Card Exposición -->
-                    <div class="bg-background-card p-6 shadow-lg rounded-2xl w-full max-w-sm md:max-w-none">
-                        <img src="" alt="Imagen de exposición" class="w-full h-56 object-cover mb-4 rounded-lg">
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-900 mb-3">Exposición</h4>
-                            <p class="text-card-text font-semibold mb-1">Fecha: 15 Sept 2026</p>
-                            <p class="text-card-text font-semibold mb-1">Valparíso</p>
-                            <p class="text-action-button font-bold mb-1">5.500 CLP</p>
-                            <p class="text-registrar-button font-semibold">Cupos: 135 Disponibles</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </div>

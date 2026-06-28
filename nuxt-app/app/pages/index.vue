@@ -3,11 +3,13 @@ import type { Evento } from '~/types/eventos';
 
 const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/eventos/proximos')
 </script>
+
+
 <template>
-    <div class=" min-h-screen bg-linear-to-r from-start-transition-bg to-end-transition-bg">
+    <div class="w-full mx-auto min-h-screen bg-linear-to-r from-start-transition-bg to-end-transition-bg">
         <!--HERO-->
         <section
-            class=" relative bg-linear-to-r from-start-transition-hero via-via-transition-hero to-end-transition-hero pt-24 pb-20">
+            class="  relative bg-linear-to-r from-start-transition-hero via-via-transition-hero to-end-transition-hero pt-24 pb-20">
             <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                 <!--Texto-->
                 <div class="space-y-6">
@@ -30,7 +32,7 @@ const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/ev
         </section>
 
         <!--PROXIMOS EVENTOS-->
-        <section class="py-16">
+        <section class="py-16 ">
             <div class="max-w-7xl mx-auto px-6">
 
                 <h2 class="text-3xl font-bold mb-10 text-center md:text-left">Próximos Eventos</h2>

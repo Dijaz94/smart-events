@@ -7,12 +7,12 @@ import type { Evento } from '~/types/eventos';
 
     const fechaFormateada = computed(()=>formatFechaCorta(props.evento.fecha))
     const horaFormateada  =computed(()=>formatHora(props.evento.fecha))
-
+    
     
 </script>
 
 <template>
-              <div class="bg-background-card p-6 shadow-lg rounded-2xl">
+              <div class="bg-background-card p-6 shadow-lg rounded-2xl h-full w-full">
                         <img :src="evento.imagen" :alt="`Imagen de ${evento.titulo}`" class="w-full h-56 object-cover object-top mb-4 rounded-lg">
                         <div>
                             <h4 class="text-xl font-bold text-gray-900 mb-3">{{evento.titulo}}</h4>

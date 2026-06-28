@@ -16,7 +16,8 @@ export function formatFecha(fecha?: string | Date | null) {
   return new Intl.DateTimeFormat('es-CL', {
     day: '2-digit',
     month: '2-digit',
-    year: 'numeric'
+    year: 'numeric',
+    timeZone: 'UTC'
   }).format(date)
 }
 
@@ -28,7 +29,9 @@ export function formatHora(fecha?: string | Date | null) {
   return `${new Intl.DateTimeFormat('es-CL', {
     hour: '2-digit',
     minute: '2-digit',
-    hour12: false
+    hour12: false,
+    timeZone: 'UTC'
+
   }).format(date)} hrs`
 }
 
@@ -40,7 +43,8 @@ export function formatFechaCorta(fecha?: string | Date | null) {
   const parts = new Intl.DateTimeFormat('es-CL', {
     day: '2-digit',
     month: 'short',
-    year: 'numeric'
+    year: 'numeric',
+    timeZone: 'UTC'
   }).formatToParts(date)
 
   const day = parts.find(part => part.type === 'day')?.value
