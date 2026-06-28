@@ -15,7 +15,7 @@ const navigationItems = [
     <!-- body -->
     <div class="min-h-screen bg-linear-to-br from-color-start-transition-bg to-color-end-transition-bg flex flex-col">
         <!-- header -->
-        <header class="border-b backdrop-blur">
+        <header class="backdrop-blur">
             <div class="p-4 flex justify-between">
                 <a href="localhost:3000">
                     <!-- Titulo -->
