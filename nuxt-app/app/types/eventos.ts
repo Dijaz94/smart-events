@@ -3,6 +3,6 @@ export interface Evento{
     titulo:string
     fecha: Date
     lugar: string
-    valor: Number
-    rutaImage: string
+    valor: number
+    imagen: string
 }
