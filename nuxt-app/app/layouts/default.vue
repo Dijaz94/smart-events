@@ -36,7 +36,10 @@ const navigationItems = [
                         {{ item.label }}
 
                     </NuxtLink>
-                    <UButton class="bg-action-button text-p-title rounded-2xl">Iniciar sesión</UButton>
+                    <NuxtLink to="/iniciarSesion">
+                        <UButton class="bg-action-button text-p-title rounded-2xl">Iniciar sesión</UButton>
+                    </NuxtLink>
+                    
                 </div>
 
             </div>
