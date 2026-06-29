@@ -17,7 +17,7 @@ const navigationItems = [
         <!-- header -->
         <header class="backdrop-blur">
             <div class="p-4 flex justify-between">
-                <a href="localhost:3000">
+                <NuxtLink to="/">
                     <!-- Titulo -->
                     <div>
                         <p class="font-bold tracking-wide text-2xl">
@@ -26,7 +26,7 @@ const navigationItems = [
                         </p>
                     </div>
 
-                </a>
+                </NuxtLink>
                 <!-- Páginas -->
                 <div class="flex gap-3">
                     <NuxtLink v-for="item in navigationItems" :key="item.to" :to="item.to"
