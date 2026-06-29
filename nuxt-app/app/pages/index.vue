@@ -10,9 +10,9 @@ const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/ev
         <!--HERO-->
         <section
             class="  relative bg-linear-to-r from-start-transition-hero via-via-transition-hero to-end-transition-hero pt-24 pb-20">
-            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center ">
                 <!--Texto-->
-                <div class="space-y-6">
+                <div class="space-y-6 text-center md:text-left">
                     <h1 class="text-5xl md:text-6xl font-bold leading-tight">Conoce los mejores eventos pensados para ti
                     </h1>
                     <p class="text-lg md:text-xl text-gray-200 max-w-lg"> Navega y regístrate en cualquiera de los

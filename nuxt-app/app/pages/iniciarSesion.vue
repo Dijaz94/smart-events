@@ -1,5 +1,8 @@
+<script setup lang="ts">
+</script>
+
 <template>
-    <div class="min-h-screen bg-linear-to-r from-start-transition-hero via-via-transition-hero to-end-transition-hero
+    <div class="min-h-screen w-full mx-auto bg-linear-to-r from-start-transition-hero via-via-transition-hero to-end-transition-hero
     flex items-center justify-center">
         <div class="w-full max-w-md px-4">
             <!--Formulario Card-->
