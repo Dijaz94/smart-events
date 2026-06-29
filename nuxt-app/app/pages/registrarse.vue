@@ -1,8 +1,78 @@
 <script setup lang="ts">
 import type { Evento } from '~/types/eventos';
 
-    const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/eventos/proximos')
-console.log(eventosProximos.value)
+    const {data:eventos, pending, error, refresh} = await useFetch<Evento[]>('/api/eventos')
+
+
+    const guardandoRegistro = ref(false)
+    const errorForm= ref('')
+
+    const eventoSeleccionado = ref<{label:string, value:Number}|undefined>(undefined)
+
+    const formRegistro= reactive({
+        nombre:'',
+        apellido:'',
+        email:'',
+        evento:undefined as number | undefined
+    })
+
+
+    function vaciarForm(){
+        formRegistro.nombre=''
+        formRegistro.apellido=''
+        formRegistro.email=''
+        formRegistro.evento=undefined
+        errorForm.value=''
+        eventoSeleccionado.value = undefined
+    }
+
+    async function guardarRegistro() {
+        guardandoRegistro.value=true
+        errorForm.value=''
+        formRegistro.evento = Number(eventoSeleccionado.value?.value)
+
+        const evento = eventoSeleccionado.value?.label 
+        try{
+            await $fetch('/api/registros',{
+                method: 'POST',
+                body: {
+                    nombre: formRegistro.nombre,
+                    apellido: formRegistro.apellido,
+                    email: formRegistro.email,
+                    evento: formRegistro.evento
+                }
+            })
+            
+            vaciarForm()
+            await refresh()
+            useToast().add({title:"Inscripción exitosa", 
+                duration:2000,
+                description:`Se ha inscrito exitosamente en '${evento}'`
+            })
+        }
+        catch(err:any){
+            errorForm.value=getApiErrorMessage(err,"No se pudo guardar el regristro." )
+            useToast().add({
+                title:"Error",
+                description:errorForm.value,
+                duration:2000
+            })
+
+        }
+        finally{
+            guardandoRegistro.value=false
+        }
+        
+    }
+
+    const eventoOptions = computed(() =>
+        eventos.value?.map(evento => ({
+        label: evento.titulo,
+        value: evento.id_evento
+        })) ?? []
+    )
+    
+
 </script>
 <template>
     <div class="w-full mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
@@ -10,51 +80,41 @@ console.log(eventosProximos.value)
 
             <!-- Formulario lado izquierdo -->
             <aside class="w-full sm:w-80 shrink-0">
+                
+                
                 <div class="bg-form-bg border border-form-border rounded-2xl p-6 sticky top-24">
-                    <h2 class="font-semibold text-2xl mb-1">Registrarse a un Evento</h2>
-                    <p class="text-light-text mb-6">Complete todos los campos</p>
+                    <div class="text-center">
+                        <h2 class="font-semibold text-2xl mb-1">Registrarse a un Evento</h2>
+                        <p class="text-light-text mb-6">Complete todos los campos</p>
+                    </div>
 
-                    <form class="flex flex-col gap-5">
-                        <!-- Nombre -->
-                        <div>
-                            <label class="block font-semibold text-white mb-2">Nombre</label>
-                            <input type="text" placeholder="Ej: Juan"
-                                class="w-full bg-black border border-input-border rounded-xl px-6 py-2 text-white placeholder-light-text transition-colors" />
-                        </div>
+                <UForm class="space-y-4" :state="formRegistro"  @submit.prevent="guardarRegistro">
+                    <UFormField label="Nombre" name="nombre" >
+                        <UInput  class="w-full" color="neutral" variant="outline" v-model="formRegistro.nombre"></UInput>
+                    </UFormField>
 
-                        <!-- Apellido -->
-                        <div>
-                            <label class="block font-semibold text-white mb-2">Apellido</label>
-                            <input type="text" placeholder="Ej: Perez"
-                                class="w-full bg-black border border-input-border rounded-xl px-6 py-2 text-white placeholder-light-text transition-colors" />
-                        </div>
+                    <UFormField label="Apellido" name="apellido"  class="w-full">
+                        <UInput class="w-full" color="neutral" variant="outline" v-model="formRegistro.apellido"></UInput>
+                    </UFormField>
 
-                        <!-- Email -->
-                        <div>
-                            <label class="block font-semibold text-white mb-2">Email</label>
-                            <input type="email" placeholder="Ej: juanperez@email.com"
-                                class="w-full bg-black border border-input-border rounded-xl px-6 py-2 text-white placeholder-light-text transition-colors" />
-                        </div>
+                    <UFormField label="Email" name="email"  class="w-full">
+                        <UInput class="w-full" color="neutral" variant="outline" v-model="formRegistro.email"></UInput>
+                    </UFormField>
+                    
+                    <UFormField label="Evento" name="evento">
+                        <USelectMenu placeholder="Seleccione evento" v-model="eventoSeleccionado" :items="eventoOptions"  class="w-full"/>
 
-                        <!-- Selección de evento -->
-                        <div>
-                            <label class="block font-semibold text-white mb-2">Evento</label>
-                            <select
-                                class="w-full bg-black border border-input-border rounded-xl px-6 py-2 text-white placeholder-light-text transition-colors">
-                                <option value="" class="text-light-text">Seleccione un evento</option>
-                                <option value="Ballet">Ballet</option>
-                                <option value="Charla">Charla</option>
-                                <option value="Exposicion">Exposición</option>
-                            </select>
-                        </div>
-
-                        <!-- Botón -->
-                        <button type="submit"
-                            class="bg-registrar-button hover:bg-action-button text-white font-semibold py-2 px-4 rounded-full transition-colors">
-                            Registrarse
-                        </button>
-                    </form>
+                    </UFormField>
+                    <div  class="flex justify-center  text-center">
+                        <UButton class="py-2 px-4 bg-registrar-button text-background-card hover:bg-action-button transition-colors rounded-full w-full text-center"  :ui="{ base: 'justify-center' }" type="submit"  :loading="guardandoRegistro">
+                        Registrarse
+                        </UButton>
+                    </div>
+                    
+                </UForm>
                 </div>
+
+                
             </aside>
 
             <!-- Sección de Próximos Eventos -->
@@ -66,7 +126,7 @@ console.log(eventosProximos.value)
                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center md:place-items-start items-stretch">
 
                     <!-- Cards -->
-                    <CardEvento v-for="card in eventosProximos" :evento="card"/>
+                    <CardEvento v-for="card in eventos" :evento="card"/>
 
                 </div>
             </section>

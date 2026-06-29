@@ -1,5 +1,5 @@
 export interface Evento{
-    id:Number
+    id_evento:Number
     titulo:string
     fecha: Date
     lugar: string
