@@ -17,10 +17,14 @@ const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/ev
                     </h1>
                     <p class="text-lg md:text-xl text-gray-200 max-w-lg"> Navega y regístrate en cualquiera de los
                         eventos que tenemos para la comunidad</p>
-                    <UButton
-                        class="px-8 py-4 rounded-full text-lg font-semibold flex items-center gap-2 bg-registrar-button hover:bg-action-button transition-colors text-white">
-                        Registrarse a
-                        un evento</UButton>
+                        <NuxtLink to="/registrarse">
+                            <UButton type="button"
+                            class="px-8 py-4 rounded-full text-lg font-semibold flex items-center gap-2 bg-registrar-button hover:bg-action-button transition-colors text-white">
+                            Registrarse a
+                            un evento</UButton>
+
+                        </NuxtLink>
+                    
                 </div>
 
                 <!--Imagen-->
