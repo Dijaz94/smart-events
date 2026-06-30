@@ -14,14 +14,15 @@ export default defineEventHandler(async()=>{
     
 })
 
-return  eventos.map(evento=>({
+return eventos.map(evento => ({
+        id_evento: evento.id_evento,
         id: evento.id_evento,
         titulo: evento.titulo,
         fecha: evento.fecha,
-        lugar:evento.lugar,
-        valor:evento.valor,
-        imagen:evento.imagen, 
-        inscrito:evento._count?.inscrito
+        lugar: evento.lugar,
+        valor: evento.valor,
+        imagen: evento.imagen,
+        inscrito: evento._count?.inscrito
     }))
 
 })

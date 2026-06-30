@@ -4,7 +4,7 @@ import type { Inscrito } from '~/types/inscrito'
 
 // --- Selector de eventos ---
 const eventos = ref<Evento[]>([])
-const eventoSeleccionado = ref<number | undefined>(undefined)
+const eventoSeleccionado = ref<{ label: string; value: number } | undefined>(undefined)
 
 const eventoOptions = computed(() =>
     eventos.value.map((e) => ({
@@ -24,7 +24,9 @@ const error = ref('')
 const busquedaRealizada = ref(false)
 
 async function buscarAsistentes() {
-    if (!eventoSeleccionado.value) {
+    const eventoId = eventoSeleccionado.value?.value
+
+    if (!eventoId) {
         error.value = 'Selecciona un evento'
         return
     }
@@ -34,7 +36,7 @@ async function buscarAsistentes() {
     busquedaRealizada.value = true
 
     try {
-        asistentes.value = await $fetch<Inscrito[]>(`/api/eventos/${eventoSeleccionado.value}/inscritos`)
+        asistentes.value = await $fetch<Inscrito[]>(`/api/eventos/${eventoId}/inscritos`)
     } catch (err: any) {
         error.value = getApiErrorMessage(err, 'No se pudieron cargar los asistentes.')
         asistentes.value = []
@@ -94,7 +96,7 @@ await cargarEventos()
 
                     <UFormField label="Evento" name="evento" class="mb-6">
                         <USelectMenu v-model="eventoSeleccionado" placeholder="Seleccione un evento"
-                            :items="eventoOptions" value-key="value" class="w-full" />
+                            :items="eventoOptions" class="w-full" />
                     </UFormField>
 
                     <UButton block :loading="cargando"
@@ -168,7 +170,7 @@ await cargarEventos()
 
                                 <div class="flex justify-end gap-3">
                                     <UButton color="neutral" variant="outline" :disabled="eliminando"
-                                        @click="mostrarConfirmacion = false">
+                                        @click="() => { mostrarConfirmacion = false }">
                                         Cancelar
                                     </UButton>
                                     <UButton color="error" :loading="eliminando" @click="eliminarConfirmado">

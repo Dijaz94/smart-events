@@ -22,8 +22,17 @@ const navigationItems = computed(() => [
 ])
 
 
-
-
+const userMenuItems = computed<DropdownMenuItem[][]>(() => [[
+    { label: `Usuario: ${datosUsuario?.nombre} ${datosUsuario?.apellido}`, type: 'label', icon: 'i-lucide-user' },
+    { label: `Email: ${datosUsuario?.email}`, type: 'label', icon: 'mdi:at' },
+    { label: `Rol: ${datosUsuario?.rol}`, type: 'label', icon: 'eos-icons:cluster-role' }
+], [
+    {
+        label: 'Cerrar sesión',
+        icon: 'i-lucide-log-out',
+        onSelect: cerrarSesion
+    }
+]])
 
 async function cerrarSesion() {
     await clear()
