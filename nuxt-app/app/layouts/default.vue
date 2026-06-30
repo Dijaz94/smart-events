@@ -2,12 +2,20 @@
 const route = useRoute()
 const isActive = (to: String) => route.path === to
 
-const navigationItems = [
+const {user, clear}= useUserSession()
+
+const navigationItems = computed(()=>[
     { label: "Inicio", to: "/" },
     { label: "Registrarse", to: "/registrarse" },
     { label: "Eventos", to: "/eventos" },
+    ...(user.value ? [{label: "Registrar evento", to:"/registrarEvento"}, {label:"Administrar asistenes", to:"/administrarAsistente"}, {label:"Asministrar Staff", to:"/administrarStaff"}]:[])
 
-]
+])
+
+async function cerrarSesion(){
+    await clear()
+    await navigateTo("/index")
+}
 </script>
 
 
@@ -36,9 +44,11 @@ const navigationItems = [
                         {{ item.label }}
 
                     </NuxtLink>
-                    <NuxtLink to="/iniciarSesion">
-                        <UButton class="bg-action-button text-p-title rounded-2xl">Iniciar sesión</UButton>
+                    <NuxtLink   to="/iniciarSesion">
+                        <UButton v-if="!user" class="bg-action-button text-p-title rounded-2xl">Iniciar sesión</UButton>
                     </NuxtLink>
+                    <UButton v-if="user" @click="cerrarSesion" class="bg-action-button text-p-title rounded-2xl">Cerrar sesión</UButton>
+
                     
                 </div>
 
