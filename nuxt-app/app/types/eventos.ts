@@ -5,4 +5,5 @@ export interface Evento{
     lugar: string
     valor: number
     imagen: string
+    inscrito: number
 }

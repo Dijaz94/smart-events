@@ -19,7 +19,12 @@ import type { Evento } from '~/types/eventos';
                             <p class="text-card-text font-semibold mb-1">Fecha: {{ fechaFormateada }}</p>
                             <p class="text-card-text font-semibold mb-1">Hora: {{ horaFormateada }}</p>
                             <p class="text-card-text font-semibold mb-1">{{evento.lugar}}</p>
+
+                            <p v-if="evento.inscrito == 1" class="text-card-text font-semibold mb-1">{{ evento.inscrito }} persona inscrita</p>
+                            <p v-if="evento.inscrito != 1" class="text-card-text font-semibold mb-1">{{ evento.inscrito }} personas inscritas</p>
+
                             <p class="text-action-button font-bold mb-1">{{ evento.valor }} CLP</p>
+                            
                         </div>
                     </div>
                     
