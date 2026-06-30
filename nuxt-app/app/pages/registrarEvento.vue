@@ -62,14 +62,14 @@ const schema = z.object({
                 const formData = new FormData() //creamos objeto que almacenara los datos de la imagen
                 formData.append('imagen', formEvento.imagen) //le damos el nombre imagen y le entregamos el archivo
 
-            const uploadResult = await $fetch<{ id: string; url: string }>('/api/upload', { //llamada al endpoint que nos retornara la url del archivo
+            const uploadResult = await $fetch<{ id: string; url: string }>('/api/upload/upload', { //llamada al endpoint que nos retornara la url del archivo
                 method: 'POST',
                 body: formData,
             })
             imagenUrl = uploadResult.url //devuelve .id y .url, necesitamos solo url
             }
             else{
-                imagenUrl = 'upload/eventos/default.png'//si no se ingresó imagen
+                imagenUrl = 'uploads/eventos/default.png'//si no se ingresó imagen
             }
 
 

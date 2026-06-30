@@ -25,7 +25,7 @@ model usuario{
 model evento{
   id_evento Int @id @default(autoincrement())
   titulo String @db.VarChar(30)
-  fecha DateTime @db.Date
+  fecha DateTime
   lugar String @db.VarChar(40)
   imagen String @db.VarChar(255) //almacenaremos la direccion URL, la cual tiene la posibilidad de ser larguisima.
   valor Int 
