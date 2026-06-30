@@ -1,19 +1,29 @@
 <script setup lang="ts">
 import type { Evento } from '~/types/eventos';
+import {z} from 'zod'
 
 const { data: eventos, pending, error, refresh } = await useFetch<Evento[]>('/api/eventos')
 
 
+const schema = z.object({
+    nombre: z.string().min(1, "Ingrese su nombre"),
+    apellido: z.string().min(1, "Ingrese su apellido"),
+    email: z.string().min(1, "Ingrese su email"),
+        
+    evento: z.object({
+    label: z.string(),
+    value: z.number()})
+}) 
+
 const guardandoRegistro = ref(false)
 const errorForm = ref('')
 
-const eventoSeleccionado = ref<{ label: string, value: number } | undefined>(undefined)
 
 const formRegistro = reactive({
     nombre: '',
     apellido: '',
     email: '',
-    evento: undefined as number | undefined
+    evento: undefined as { label: string; value: number } | undefined
 })
 
 
@@ -23,15 +33,15 @@ function vaciarForm() {
     formRegistro.email = ''
     formRegistro.evento = undefined
     errorForm.value = ''
-    eventoSeleccionado.value = undefined
 }
 
 async function guardarRegistro() {
+     console.log(formRegistro.evento)
     guardandoRegistro.value = true
     errorForm.value = ''
-    formRegistro.evento = Number(eventoSeleccionado.value?.value)
+    
 
-    const evento = eventoSeleccionado.value?.label
+    const evento = formRegistro.evento?.label
     try {
         await $fetch('/api/registros', {
             method: 'POST',
@@ -39,7 +49,7 @@ async function guardarRegistro() {
                 nombre: formRegistro.nombre,
                 apellido: formRegistro.apellido,
                 email: formRegistro.email,
-                evento: formRegistro.evento
+                evento: formRegistro.evento?.value
             }
         })
 
@@ -69,10 +79,13 @@ async function guardarRegistro() {
 const eventoOptions = computed(() =>
     eventos.value?.map(evento => ({
         label: evento.titulo,
-        value: evento.id_evento
+        value: evento.id
     })) ?? []
 )
 
+eventos.value?.forEach(e => {
+  console.log(e)
+})
 
 </script>
 <template>
@@ -89,7 +102,7 @@ const eventoOptions = computed(() =>
                         <p class="text-light-text mb-6">Complete todos los campos</p>
                     </div>
 
-                    <UForm class="space-y-4" :state="formRegistro" @submit.prevent="guardarRegistro">
+                    <UForm :schema="schema" class="space-y-4"  :state="formRegistro" @submit="guardarRegistro">
                         <UFormField label="Nombre" name="nombre">
                             <UInput class="w-full" color="neutral" variant="outline" v-model="formRegistro.nombre">
                             </UInput>
@@ -106,7 +119,7 @@ const eventoOptions = computed(() =>
                         </UFormField>
 
                         <UFormField label="Evento" name="evento">
-                            <USelectMenu placeholder="Seleccione evento" v-model="eventoSeleccionado"
+                            <USelectMenu placeholder="Seleccione evento" v-model="formRegistro.evento"
                                 :items="eventoOptions" class="w-full" />
 
                         </UFormField>
