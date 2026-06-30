@@ -64,9 +64,11 @@ async function eliminarConfirmado() {
     errorEliminar.value = ''
 
     try {
-        await $fetch(`/api/inscritos/${itemAEliminar.value.id_inscrito}`, { method: 'DELETE' })
+        await $fetch(`/api/inscritos/${itemAEliminar.value.id_inscrito}`, {
+            method: 'DELETE'
+        })
         asistentes.value = asistentes.value.filter(
-            (a) => a.id_inscrito !== itemAEliminar.value!.id_inscrito
+            (a) => a.id_inscrito !== itemAEliminar.value?.id_inscrito
         )
         mostrarConfirmacion.value = false
     } catch (err: any) {
