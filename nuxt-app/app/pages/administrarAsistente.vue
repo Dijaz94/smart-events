@@ -9,7 +9,7 @@ const eventoSeleccionado = ref<number | undefined>(undefined)
 const eventoOptions = computed(() =>
     eventos.value.map((e) => ({
         label: e.titulo,
-        value: e.id_evento,
+        value: e.id,
     }))
 )
 
