@@ -6,8 +6,10 @@ import type { Evento } from '~/types/eventos';
 </script>
 
 <template>
-    <div class="max-w-7xl mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
-        <div class="flex flex-col md:flex-row gap-10 items-start">
+
+    
+    <div class="w-full mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
+        <div max-w-7xl class="flex flex-col md:flex-row gap-10 items-start">
 
             <!-- Formulario lado izquierdo -->
             <aside class="w-full sm:w-80 shrink-0">

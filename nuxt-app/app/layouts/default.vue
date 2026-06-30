@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { DropdownMenuItem } from '@nuxt/ui'
 import type { Usuario } from '~/types/usuario'
 
 const route = useRoute()
@@ -20,7 +21,7 @@ const navigationItems = computed(()=>[
 
 ])
 
-const userMenuItems = [[
+const userMenuItems =  computed<DropdownMenuItem[][]>(() => [[
     {label: `Usuario: ${datosUsuario?.nombre} ${datosUsuario?.apellido}`, type: 'label', icon:'i-lucide-user'},
     {label: `Email: ${datosUsuario?.email}`, type: 'label',  icon:'mdi:at'},
     {label: `Rol: ${datosUsuario?.rol}`, type: 'label', icon:'eos-icons:cluster-role'}
@@ -32,7 +33,7 @@ const userMenuItems = [[
         icon: 'i-lucide-log-out',
         onSelect: cerrarSesion
     }
-]]
+]])
 
 
 
@@ -70,7 +71,7 @@ async function cerrarSesion(){
 
                     </NuxtLink>
                     <NuxtLink   to="/iniciarSesion">
-                        <UButton v-if="!user" class="bg-action-button text-p-title rounded-2xl">Iniciar sesión</UButton>
+                        <UButton v-if="!user" class="bg-action-button text-p-title rounded-2xl hover:bg-registrar-button">Iniciar sesión</UButton>
                     </NuxtLink>
 
 
