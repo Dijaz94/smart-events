@@ -21,22 +21,6 @@ const navigationItems = computed(() => [
 
 ])
 
-const userMenuItems =  computed<DropdownMenuItem[][]>(() => [[
-    {label: `Usuario: ${datosUsuario?.nombre} ${datosUsuario?.apellido}`, type: 'label', icon:'i-lucide-user'},
-    {label: `Email: ${datosUsuario?.email}`, type: 'label',  icon:'mdi:at'},
-    {label: `Rol: ${datosUsuario?.rol}`, type: 'label', icon:'eos-icons:cluster-role'}
-    ],
-[
-
-    {
-        label: 'Cerrar sesión',
-        icon: 'i-lucide-log-out',
-        onSelect: cerrarSesion
-    }
-]])
-
-
-
 
 
 
@@ -73,9 +57,11 @@ async function cerrarSesion() {
                         {{ item.label }}
 
                     </NuxtLink>
-                    
-                        <UButton v-if="!user" @click="navigateTo('/iniciarSesion')" class="bg-action-button text-p-title rounded-2xl hover:bg-registrar-button">Iniciar sesión</UButton>
-                    
+
+                    <UButton v-if="!user" @click="navigateTo('/iniciarSesion')"
+                        class="bg-action-button text-p-title rounded-2xl hover:bg-registrar-button">Iniciar sesión
+                    </UButton>
+
 
 
 
@@ -83,7 +69,7 @@ async function cerrarSesion() {
                 </div>
                 <div v-if="user" class="flex gap-4 ">
 
-                    
+
                     <UDropdownMenu :items="userMenuItems" :content="{ align: 'end', sideOffset: 12 }"
                         :ui="{ content: 'min-w-48', item: 'cursor-pointer' }">
                         <div class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-registrar-button text-sm font-bold text-white transition-transform hover:scale-120"
