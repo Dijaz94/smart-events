@@ -2,17 +2,17 @@
 const route = useRoute()
 const isActive = (to: String) => route.path === to
 
-const {user, clear}= useUserSession()
+const { user, clear } = useUserSession()
 
-const navigationItems = computed(()=>[
+const navigationItems = computed(() => [
     { label: "Inicio", to: "/" },
     { label: "Registrarse", to: "/registrarse" },
     { label: "Eventos", to: "/eventos" },
-    ...(user.value ? [{label: "Registrar evento", to:"/registrarEvento"}, {label:"Administrar asistenes", to:"/administrarAsistente"}, {label:"Asministrar Staff", to:"/administrarStaff"}]:[])
+    ...(user.value ? [{ label: "Registrar evento", to: "/registrarEvento" }, { label: "Administrar asistentes", to: "/administrarAsistente" }, { label: "Administrar Staff", to: "/administrarStaff" }] : [])
 
 ])
 
-async function cerrarSesion(){
+async function cerrarSesion() {
     await clear()
     await navigateTo("/index")
 }
@@ -44,12 +44,13 @@ async function cerrarSesion(){
                         {{ item.label }}
 
                     </NuxtLink>
-                    <NuxtLink   to="/iniciarSesion">
+                    <NuxtLink to="/iniciarSesion">
                         <UButton v-if="!user" class="bg-action-button text-p-title rounded-2xl">Iniciar sesión</UButton>
                     </NuxtLink>
-                    <UButton v-if="user" @click="cerrarSesion" class="bg-action-button text-p-title rounded-2xl">Cerrar sesión</UButton>
+                    <UButton v-if="user" @click="cerrarSesion" class="bg-action-button text-p-title rounded-2xl">Cerrar
+                        sesión</UButton>
 
-                    
+
                 </div>
 
             </div>
@@ -60,7 +61,7 @@ async function cerrarSesion(){
         <main class="flex flex-1">
             <slot />
         </main>
-        
+
         <!-- footer -->
         <footer class=" bg-background-footer py-8 ">
             <div class="flex flex-col items-center">

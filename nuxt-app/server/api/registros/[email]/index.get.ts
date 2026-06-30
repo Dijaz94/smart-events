@@ -1,6 +1,6 @@
 import type { InscritoAlEvento } from "~/types/inscrito"
 
-export default defineEventHandler(async (event): Promise<InscritoAlEvento[]>=>{
+export default defineEventHandler(async (event)=> {
     const email = getRouterParam(event, 'email')
     
     if (!email) {

@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-7xl mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
+    <div class="w-full mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
         <div class="flex flex-col md:flex-row gap-10 items-start">
             <section class="flex-1">
                 <h2 class="text-2xl font-bold text-white mb-1">Miembros del Staff</h2>
