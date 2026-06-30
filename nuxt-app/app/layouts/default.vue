@@ -5,19 +5,19 @@ import type { Usuario } from '~/types/usuario'
 const route = useRoute()
 const isActive = (to: String) => route.path === to
 
-const {user, clear}= useUserSession()
+const { user, clear } = useUserSession()
 
 const datosUsuario = user.value as Usuario | null
 
-const iniciales = computed(() => 
+const iniciales = computed(() =>
     `${datosUsuario?.nombre?.[0] ?? ''}${datosUsuario?.apellido?.[0] ?? ''}`.toUpperCase()
 )
 
-const navigationItems = computed(()=>[
+const navigationItems = computed(() => [
     { label: "Inicio", to: "/" },
     { label: "Registrarse", to: "/registrarse" },
     { label: "Eventos", to: "/eventos" },
-    ...(user.value ? [{label: "Registrar evento", to:"/registrarEvento"}, {label:"Administrar asistenes", to:"/administrarAsistente"}, {label:"Administrar Staff", to:"/administrarStaff"}]:[])
+    ...(user.value ? [{ label: "Registrar evento", to: "/registrarEvento" }, { label: "Administrar asistenes", to: "/administrarAsistente" }, { label: "Administrar Staff", to: "/administrarStaff" }] : [])
 
 ])
 
@@ -27,7 +27,7 @@ const userMenuItems =  computed<DropdownMenuItem[][]>(() => [[
     {label: `Rol: ${datosUsuario?.rol}`, type: 'label', icon:'eos-icons:cluster-role'}
     ],
 [
-    
+
     {
         label: 'Cerrar sesión',
         icon: 'i-lucide-log-out',
@@ -38,7 +38,10 @@ const userMenuItems =  computed<DropdownMenuItem[][]>(() => [[
 
 
 
-async function cerrarSesion(){
+
+
+
+async function cerrarSesion() {
     await clear()
     await navigateTo("/")
 }
@@ -70,26 +73,27 @@ async function cerrarSesion(){
                         {{ item.label }}
 
                     </NuxtLink>
-                    <NuxtLink   to="/iniciarSesion">
-                        <UButton v-if="!user" class="bg-action-button text-p-title rounded-2xl hover:bg-registrar-button">Iniciar sesión</UButton>
-                    </NuxtLink>
-
-
-
                     
+                        <UButton v-if="!user" @click="navigateTo('/iniciarSesion')" class="bg-action-button text-p-title rounded-2xl hover:bg-registrar-button">Iniciar sesión</UButton>
+                    
+
+
+
+
                 </div>
                 <div v-if="user" class="flex gap-4 ">
 
-                        <UButton  @click="cerrarSesion" class="bg-action-button text-p-title rounded-2xl">Cerrar sesión</UButton>
-                            <UDropdownMenu :items="userMenuItems" :content="{ align: 'end', sideOffset: 12 }"
-                            :ui="{ content: 'min-w-48', item: 'cursor-pointer' }" >
-                            <div class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-registrar-button text-sm font-bold text-white transition-transform hover:scale-120"
-                                role="button" tabindex="0" aria-label="Abrir menú de usuario">
-                                {{iniciales}}
-                            </div>
-                        </UDropdownMenu>
-
-                    </div>
+                    
+                    <UDropdownMenu :items="userMenuItems" :content="{ align: 'end', sideOffset: 12 }"
+                        :ui="{ content: 'min-w-48', item: 'cursor-pointer' }">
+                        <div class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-registrar-button text-sm font-bold text-white transition-transform hover:scale-120"
+                            role="button" tabindex="0" aria-label="Abrir menú de usuario">
+                            {{ iniciales }}
+                        </div>
+                    </UDropdownMenu>
+                    <UButton @click="cerrarSesion" class="bg-action-button text-p-title rounded-2xl">Cerrar sesión
+                    </UButton>
+                </div>
 
             </div>
 
@@ -99,7 +103,7 @@ async function cerrarSesion(){
         <main class="flex flex-1">
             <slot />
         </main>
-        
+
         <!-- footer -->
         <footer class=" bg-background-footer py-8 ">
             <div class="flex flex-col items-center">
