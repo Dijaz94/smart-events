@@ -109,28 +109,6 @@ await cargarEventos()
 
 
 
-
-                    <!-- 
-                    <form class="flex flex-col gap-5">
-                       
-                        <div>
-                            <label class="block font-semibold text-white mb-2">Evento</label>
-                            <select
-                                class="w-full bg-black border border-input-border rounded-xl px-6 py-2 text-white placeholder-light-text transition-colors">
-                                <option value="" class="text-light-text">Seleccione un evento</option>
-                                <option value="Ballet">Ballet</option>
-                                <option value="Charla">Charla</option>
-                                <option value="Exposicion">Exposición</option>
-                            </select>
-                        </div>
-
-                        
-                        <button type="submit"
-                            class="bg-action-button hover:bg-registrar-button text-white font-semibold py-2 px-4 rounded-full transition-colors">
-                            Buscar
-                        </button>
-                    </form>
-                     -->
                 </div>
             </aside>
 
@@ -155,64 +133,19 @@ await cargarEventos()
 
                     <div v-else-if="asistentes.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <CardPersona v-for="a in asistentes" :key="a.id_inscrito" :nombre="a.nombre"
-                            :apellido="a.apellido" :email="a.email" accion-label="Administrar Asistencia"
+                            :apellido="a.apellido" :email="a.email" :rol="a" accion-label="Administrar Asistencia"
                             :accion-to="`/asistentes/${a.id_inscrito}`" @eliminar="confirmarEliminarAsistente(a)" />
                     </div>
 
-                    <!-- Modal de confirmación -->
-                    <UModal v-model:open="mostrarConfirmacion">
-                        <template #content>
-                            <div class="p-6">
-                                <h3 class="text-lg font-bold mb-2">¿Eliminar asistente?</h3>
-                                <p class="text-gray-600 mb-4">
-                                    Esta acción eliminará a {{ itemAEliminar?.nombre }} {{ itemAEliminar?.apellido }}
-                                    permanentemente.
-                                </p>
-                                <p v-if="errorEliminar" class="text-red-500 text-sm mb-4">{{ errorEliminar }}</p>
-
-                                <div class="flex justify-end gap-3">
-                                    <UButton color="neutral" variant="outline" :disabled="eliminando"
-                                        @click="() => { mostrarConfirmacion = false }">
-                                        Cancelar
-                                    </UButton>
-                                    <UButton color="error" :loading="eliminando" @click="eliminarConfirmado">
-                                        Eliminar
-                                    </UButton>
-                                </div>
-                            </div>
-                        </template>
-                    </UModal>
+                    <ConfirmModal v-model:open="mostrarConfirmacion"
+                    title="¿Eliminar usuario?"
+                    :item-name="`${itemAEliminar?.nombre} ${itemAEliminar?.apellido}`"
+                    :loading="eliminando"
+                    :error="errorEliminar"
+                    @confirm="eliminarConfirmado"/>
 
 
 
-
-
-                    <!-- Card de asistente 1 -->
-                    <!--
-                    <div class="bg-background-card rounded-2xl p-8 shadow-lg">
-                        <h3 class="text-2xl font-bold text-card-text mb-1">Asistente Nombre 1</h3>
-                        <p class="text-light-text mb-4">asistentenombre1@gmail.com</p>
-                        <hr class="border-light-text mb-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-light-text font-semibold">Administrar Asistencia</span>
-                            
-                            <button aria-label="Eliminar asistente"
-                                class="rounded-full bg-red-400/40 hover:bg-red-400/60 text-red-600 p-2.5 transition-colors">
-                               
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M3 6h18" />
-                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                    <line x1="10" x2="10" y1="11" y2="17" />
-                                    <line x1="14" x2="14" y1="11" y2="17" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    -->
 
 
                 </div>

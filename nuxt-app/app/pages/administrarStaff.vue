@@ -117,7 +117,7 @@ async function eliminarConfirmado() {
                 <p class="text-light-text mb-8">Visualice y administre a los miembros del staff</p>
 
                 <div class="flex flex-col gap-4">
-                    <CardPersona v-for="usuario in usuarios" :key="usuario.email" :nombre="usuario.nombre"
+                    <CardStaff v-for="usuario in usuarios" :key="usuario.email" :nombre="usuario.nombre"
                         :apellido="usuario.apellido" :email="usuario.email" :rol="usuario.rol" accion-label="Administrar Cuenta"
                         :accion-to="`/usuario/${encodeURIComponent(usuario.email)}`"
                         @eliminar="confirmarEliminarMiembro(usuario)" />
@@ -165,25 +165,11 @@ async function eliminarConfirmado() {
         </div>
     </div>
 
-    <UModal v-model:open="mostrarConfirmacion">
-        <template #content>
-            <div class="p-6">
-                <h3 class="text-lg font-bold mb-2">¿Eliminar miembro?</h3>
-                <p class="text-gray-600 mb-4">
-                    Esta acción eliminará a
-                    <span class="font-semibold">{{ staffBorrar?.nombre }} {{ staffBorrar?.apellido }}</span>
-
-                </p>
-                <p v-if="errorEliminar" class="text-red-500 text-sm mb-4">{{ errorEliminar }}</p>
-                <div class="flex justify-end gap-3">
-                    <UButton color="neutral" variant="outline" :disabled="eliminando" @click="cancelarEliminar">
-                        Cancelar
-                    </UButton>
-                    <UButton color="error" :loading="eliminando" @click="eliminarConfirmado">
-                        Eliminar
-                    </UButton>
-                </div>
-            </div>
-        </template>
-    </UModal>
+    <ConfirmModal v-model:open="mostrarConfirmacion"
+        title="¿Eliminar usuario?"
+        :item-name="`${staffBorrar?.nombre} ${staffBorrar?.apellido}`"
+        :loading="eliminando"
+        :error="errorEliminar"
+        @confirm="eliminarConfirmado"/>
+   
 </template>

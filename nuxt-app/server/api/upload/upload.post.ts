@@ -8,6 +8,8 @@ const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
 
 
 export default defineEventHandler(async (event) => {
+
+  
   const formData = await readMultipartFormData(event)
 
   if (!formData || formData.length === 0) {

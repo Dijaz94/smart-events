@@ -3,7 +3,7 @@ import type { Evento } from '~/types/eventos';
 import { z } from 'zod'
 
 
-const maxFIleSIze = 5 * 1024 * 1024
+const maxFileSize = 5 * 1024 * 1024
 const filesAccepted = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
 
 const schema = z.object({
@@ -14,14 +14,14 @@ const schema = z.object({
     lugar: z.string().min(1, "El Lugar es obligatorio"),
     imagen: z
         .instanceof(File)
-        .refine((file) => file.size <= maxFIleSIze, {
-            message: 'La imagen no debe superar 5MB',
+        .refine((file) => file.size <= maxFileSize, {
+            message: 'La imagen no debe superar 5MB'
         })
         .refine((file) => filesAccepted.includes(file.type), {
-            message: 'Formato no soportado',
+            message: 'Formato no soportado'
         })
         .nullable()
-        .optional(),
+        .optional()
 })
 
 
@@ -56,7 +56,7 @@ async function guardarEvento() {
     const tituloEvento = formEvento.titulo
     try {
         //procesamos la imagen y nos devuelve su url
-        let imagenUrl = ''
+        let imagenUrl = '' // const imagenUrl = ref('')
 
         if (formEvento.imagen) {
             const formData = new FormData() //creamos objeto que almacenara los datos de la imagen
@@ -216,27 +216,14 @@ async function eliminarConfirmado() {
                 </div>
             </section>
 
-            <UModal v-model:open="mostrarConfirmacion">
-                <template #content>
-                    <div class="p-6">
-                        <h3 class="text-lg font-bold mb-2">¿Eliminar evento?</h3>
-                        <p class="text-gray-600 mb-4">
-                            Esta acción eliminará <span class="font-semibold">{{ eliminarEvento?.titulo }}</span>
-                            permanentemente.
-                        </p>
-                        <p v-if="errorEliminar" class="text-red-500 text-sm mb-4">{{ errorEliminar }}</p>
-                        <div class="flex justify-end gap-3">
-                            <UButton color="neutral" variant="outline" :disabled="eliminando"
-                                @click="() => { mostrarConfirmacion = false }">
-                                Cancelar
-                            </UButton>
-                            <UButton color="error" :loading="eliminando" @click="eliminarConfirmado">
-                                Eliminar
-                            </UButton>
-                        </div>
-                    </div>
-                </template>
-            </UModal>
+             <ConfirmModal
+        v-model:open="mostrarConfirmacion"
+        title="¿Eliminar usuario?"
+        :item-name="eliminarEvento?.titulo"
+        :loading="eliminando"
+        :error="errorEliminar"
+        @confirm="eliminarConfirmado"
+    />
         </div>
     </div>
 </template>

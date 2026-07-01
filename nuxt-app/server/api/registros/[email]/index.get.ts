@@ -1,9 +1,9 @@
 import type { InscritoAlEvento } from "~/types/inscrito"
 
 export default defineEventHandler(async (event)=> {
-    const email = getRouterParam(event, 'email')
+    const email =  getRouterParam(event, 'email')
     
-    if (!email) {
+    if (!email ) {
     throw createError({ statusCode: 400, statusMessage: 'Email es requerido' })
   }
 

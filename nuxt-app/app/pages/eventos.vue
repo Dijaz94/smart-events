@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { InscritoAlEvento } from '~/types/inscrito'
+import {z} from 'zod'
 
+
+const schema = z.object({
+    email:z.email( {message:'Ingrese formato email válido'})
+})
 
 const resultados = ref<InscritoAlEvento[]>([])
 const buscando = ref(false)
@@ -12,17 +17,15 @@ const formConsulta = reactive({
 })
 
 async function buscarEventos() {
-    if (!formConsulta.email) {
-        error.value = 'Ingresa un email'
-        return
-    }
     buscando.value = true
     error.value = ''
-    busquedaRealizada.value = true
+    
 
     try {
         resultados.value = await $fetch<InscritoAlEvento[]>(`/api/registros/${encodeURIComponent(formConsulta.email)}`)
         formConsulta.email = ''
+        busquedaRealizada.value = true
+        console.log("llega hasta aca")
     } catch (err: any) {
         error.value = getApiErrorMessage(err, "No se pudo realizar la busqueda.")
     } finally {
@@ -41,9 +44,9 @@ async function buscarEventos() {
             <div class="max-w-xl bg-form-bg border border-form-border rounded-2xl gap-5 p-8 shadow-2xl">
                 <h2 class="text-2xl font-bold text-white mb-6">Consulta tus eventos registrados</h2>
 
-                <UForm class="space-y-5" :state="formConsulta" @submit.prevent="buscarEventos">
+                <UForm :schema="schema" class="space-y-5" :state="formConsulta" @submit.prevent="buscarEventos">
                     <UFormField label="Email" name="email" class="w-full ">
-                        <UInput v-model="formConsulta.email" type="email" placeholder="Ej: juanperez@email.com"
+                        <UInput v-model="formConsulta.email" placeholder="Ej: juanperez@email.com"
                             class="w-full" color="neutral" variant="outline" />
                     </UFormField>
 
