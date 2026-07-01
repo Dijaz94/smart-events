@@ -2,7 +2,6 @@
 import type { InscritoAlEvento } from '~/types/inscrito'
 
 
-const email = ref('')
 const resultados = ref<InscritoAlEvento[]>([])
 const buscando = ref(false)
 const error = ref('')

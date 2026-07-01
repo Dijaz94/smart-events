@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Evento } from '~/types/eventos';
 
-const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/eventos/proximos')
+const { data: eventosProximos, pending, error } = await useFetch<Evento[]>('/api/eventos/proximos')
 </script>
 
 
@@ -17,19 +17,19 @@ const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/ev
                     </h1>
                     <p class="text-lg md:text-xl text-gray-200 max-w-lg"> Navega y regístrate en cualquiera de los
                         eventos que tenemos para la comunidad</p>
-                        <NuxtLink to="/registrarse">
-                            <UButton type="button"
+                    <NuxtLink to="/registrarse">
+                        <UButton type="button"
                             class="px-8 py-4 rounded-full text-lg font-semibold flex items-center gap-2 bg-registrar-button hover:bg-action-button transition-colors text-white">
                             Registrarse a
                             un evento</UButton>
 
-                        </NuxtLink>
-                    
+                    </NuxtLink>
+
                 </div>
 
                 <!--Imagen-->
-                <div class="relative">
-                    <img src="" alt="">
+                <div class="hidden md:flex justify-center items-center">
+
                 </div>
 
             </div>
@@ -43,8 +43,8 @@ const {data:eventosProximos, pending, error} = await useFetch<Evento[]>('/api/ev
 
                 <!--Cards-->
                 <div class="grid md:grid-cols-3 gap-8 px-24 items-stretch">
-                    <CardEvento v-for="card in eventosProximos" :evento="card"/>
-                    
+                    <CardEvento v-for="card in eventosProximos" :evento="card" />
+
 
 
                 </div>

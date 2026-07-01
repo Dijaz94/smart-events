@@ -20,9 +20,8 @@ const emit = defineEmits<{
         <hr class="border-gray-200 mb-4">
 
         <div class="flex justify-between items-center">
-            <NuxtLink :to="accionTo" class="text-gray-700 hover:text-purple-800 transition-colors">
-                {{ accionLabel }}
-            </NuxtLink>
+            <p class="text-gray-700">{{ accionLabel }}</p>
+
 
             <button class="bg-red-100 hover:bg-red-200 text-red-500 rounded-full p-2 transition-colors"
                 @click="emit('eliminar')">
