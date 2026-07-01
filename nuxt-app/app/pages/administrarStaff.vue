@@ -118,7 +118,7 @@ async function eliminarConfirmado() {
 
                 <div class="flex flex-col gap-4">
                     <CardPersona v-for="usuario in usuarios" :key="usuario.email" :nombre="usuario.nombre"
-                        :apellido="usuario.apellido" :email="usuario.email" accion-label="Administrar Cuenta"
+                        :apellido="usuario.apellido" :email="usuario.email" :rol="usuario.rol" accion-label="Administrar Cuenta"
                         :accion-to="`/usuario/${encodeURIComponent(usuario.email)}`"
                         @eliminar="confirmarEliminarMiembro(usuario)" />
                 </div>

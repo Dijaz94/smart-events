@@ -3,6 +3,7 @@ const props = defineProps<{
     nombre: string
     apellido: string
     email: string
+    rol:string
     accionLabel: string
     accionTo: string
 }>()
@@ -16,7 +17,7 @@ const emit = defineEmits<{
     <div class="bg-background-card p-6 shadow-lg rounded-2xl">
         <h4 class="text-xl font-bold text-card-text mb-1">{{ nombre }} {{ apellido }}</h4>
         <p class="text-light-text mb-4">{{ email }}</p>
-
+        <p class="text-light-text mb-4">{{ rol }}</p>
         <hr class="border-gray-200 mb-4">
 
         <div class="flex justify-between items-center">
