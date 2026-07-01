@@ -12,6 +12,8 @@ const formLogin = reactive({
     email: '',
     password: ''
 })
+
+
 const { fetch: fetchSession } = useUserSession()
 
 async function iniciarSesion(){
@@ -47,7 +49,7 @@ async function iniciarSesion(){
             <!--Formulario Card-->
             <div class="bg-form-bg border-2 border-form-border rounded-2xl p-8 shadow-2xl">
 
-                <UForm @submit.prevent="iniciarSesion" :schema="schemaLogin" :state="formLogin" class="space-y-6">
+                <UForm @submit="iniciarSesion" :schema="schemaLogin" :state="formLogin" class="space-y-6">
                     
                     
                         <div class="text-center">

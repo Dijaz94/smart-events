@@ -209,7 +209,7 @@ async function eliminarConfirmado() {
 
                     <div v-for="card in eventos" :key="card.id" class="relative w-full">
                         <CardEvento :evento="card" />
-                        <UButton class="absolute top-3 right-3" color="error" variant="ghost" icon="i-heroicons-trash"
+                        <UButton class="absolute top-3 right-3 bg-red-200" color="error" variant="outline" icon="i-heroicons-trash"
                             size="sm" @click="confirmarEliminarEvento(card)" />
                     </div>
 

@@ -111,7 +111,7 @@ async function eliminarConfirmado() {
 
 <template>
     <div class="w-full mx-auto px-6 py-16 bg-linear-to-r from-start-transition-bg to-end-transition-bg">
-        <div class="flex flex-col md:flex-row gap-10 items-start">
+        <div class="flex flex-col lg:flex-row gap-10 items-start">
             <section class="flex-1">
                 <h2 class="text-2xl font-bold text-white mb-1">Miembros del Staff</h2>
                 <p class="text-light-text mb-8">Visualice y administre a los miembros del staff</p>
@@ -128,10 +128,10 @@ async function eliminarConfirmado() {
             </section>
 
             <!-- Formulario para agregar staff -->
-            <aside class="w-full md:w-96 shrink-0">
+            <aside class="w-full lg:w-96 shrink-0">
                 <div class="bg-form-bg border border-form-border rounded-2xl p-6 sticky top-24">
-                    <h2 class="font-semibold text-2xl mb-1">Registrar Nuevo Miembro del Staff</h2>
-                    <p class="text-light-text mb-6">Complete todos los campos</p>
+                    <h2 class="font-semibold text-2xl lg-1">Registrar Nuevo Miembro del Staff</h2>
+                    <p class="text-light-text lg-6">Complete todos los campos</p>
 
                     <UForm :state="formNuevoStaff" :schema="schema" class="flex flex-col gap-5"
                         @submit.prevent="registrarMiembro">

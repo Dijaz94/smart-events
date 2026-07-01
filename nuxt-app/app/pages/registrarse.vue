@@ -36,7 +36,6 @@ function vaciarForm() {
 }
 
 async function guardarRegistro() {
-     console.log(formRegistro.evento)
     guardandoRegistro.value = true
     errorForm.value = ''
     
@@ -83,9 +82,7 @@ const eventoOptions = computed(() =>
     })) ?? []
 )
 
-eventos.value?.forEach(e => {
-  console.log(e)
-})
+
 
 </script>
 <template>

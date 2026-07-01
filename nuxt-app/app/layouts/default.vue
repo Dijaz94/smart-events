@@ -7,25 +7,25 @@ const isActive = (to: String) => route.path === to
 
 const { user, clear } = useUserSession()
 
-const datosUsuario = user.value as Usuario | null
+const datosUsuario = computed<Usuario | null>(() => user.value as Usuario | null)
 
 const iniciales = computed(() =>
-    `${datosUsuario?.nombre?.[0] ?? ''}${datosUsuario?.apellido?.[0] ?? ''}`.toUpperCase()
+    `${datosUsuario.value?.nombre?.[0] ?? ''}${datosUsuario.value?.apellido?.[0] ?? ''}`.toUpperCase()
 )
 
 const navigationItems = computed(() => [
     { label: "Inicio", to: "/" },
     { label: "Registrarse", to: "/registrarse" },
     { label: "Eventos", to: "/eventos" },
-    ...(user.value ? [{ label: "Registrar evento", to: "/registrarEvento" }, { label: "Administrar asistenes", to: "/administrarAsistente" }, { label: "Administrar Staff", to: "/administrarStaff" }] : [])
+    ...(user.value ? [{ label: "Registrar Evento", to: "/registrarEvento" }, { label: "Administrar Asistenes", to: "/administrarAsistente" }, { label: "Administrar Staff", to: "/administrarStaff" }] : [])
 
 ])
 
 
 const userMenuItems = computed<DropdownMenuItem[][]>(() => [[
-    { label: `Usuario: ${datosUsuario?.nombre} ${datosUsuario?.apellido}`, type: 'label', icon: 'i-lucide-user' },
-    { label: `Email: ${datosUsuario?.email}`, type: 'label', icon: 'mdi:at' },
-    { label: `Rol: ${datosUsuario?.rol}`, type: 'label', icon: 'eos-icons:cluster-role' }
+    { label: `Usuario: ${datosUsuario.value?.nombre} ${datosUsuario.value?.apellido}`, type: 'label', icon: 'i-lucide-user' },
+    { label: `Email: ${datosUsuario.value?.email}`, type: 'label', icon: 'mdi:at' },
+    { label: `Rol: ${datosUsuario.value?.rol}`, type: 'label', icon: 'eos-icons:cluster-role' }
 ], [
     {
         label: 'Cerrar sesión',
@@ -58,9 +58,9 @@ async function cerrarSesion() {
 
                 </NuxtLink>
                 <!-- Páginas -->
-                <div class="flex gap-3">
+                <div class="flex items-center lg:items-end ml-auto gap-3">
                     <NuxtLink v-for="item in navigationItems" :key="item.to" :to="item.to"
-                        class=" py-1 px-2 text-sm font-medium" :class="isActive(item.to) ?
+                        class="h-full lg:h-8  py-1 px-2 text-sm font-medium" :class="isActive(item.to) ?
                             'border-y-action-button border-b-2 shadow-sm' :
                             ''">
                         {{ item.label }}
@@ -68,7 +68,7 @@ async function cerrarSesion() {
                     </NuxtLink>
 
                     <UButton v-if="!user" @click="navigateTo('/iniciarSesion')"
-                        class="bg-action-button text-p-title rounded-2xl hover:bg-registrar-button">Iniciar sesión
+                        class="p-2 bg-action-button text-p-title rounded-2xl hover:bg-registrar-button">Iniciar sesión
                     </UButton>
 
 
@@ -86,7 +86,7 @@ async function cerrarSesion() {
                             {{ iniciales }}
                         </div>
                     </UDropdownMenu>
-                    <UButton @click="cerrarSesion" class="bg-action-button text-p-title rounded-2xl">Cerrar sesión
+                    <UButton @click="cerrarSesion" class="bg-action-button text-p-title rounded-2xl hidden lg:block">Cerrar sesión
                     </UButton>
                 </div>
 
