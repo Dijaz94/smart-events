@@ -25,7 +25,6 @@ async function buscarEventos() {
         resultados.value = await $fetch<InscritoAlEvento[]>(`/api/registros/${encodeURIComponent(formConsulta.email)}`)
         formConsulta.email = ''
         busquedaRealizada.value = true
-        console.log("llega hasta aca")
     } catch (err: any) {
         error.value = getApiErrorMessage(err, "No se pudo realizar la busqueda.")
     } finally {
