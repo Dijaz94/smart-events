@@ -27,10 +27,6 @@ const { data: eventosProximos, pending, error } = await useFetch<Evento[]>('/api
 
                 </div>
 
-                <!--Imagen-->
-                <div class="hidden md:flex justify-center items-center">
-
-                </div>
 
             </div>
         </section>
